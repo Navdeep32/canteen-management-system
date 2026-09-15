@@ -109,25 +109,9 @@ streamlit run src/app.py
 
 App opens at: `http://localhost:8501`
 
-## ✨ Features
-
-- User authentication with SHA-256 password hashing
-- Sales & inventory tracking with CRUD operations
-- Real-time dashboards & analytics
-- Advanced reports & data visualization
-- Low stock alerts
-- Bulk CSV/Excel file upload
-- Search & pagination
-- Data management interface
-
 ## 📂 Dataset
 
-This repository contains:
-
-- `data/raw/` – Original datasets used for the project.
-- `data/cleaned/` – Cleaned datasets generated during preprocessing.
-- `data/sample/` – Sample datasets used for demonstration and testing.
-- The Streamlit application reads data from the **MySQL database**, while the datasets are provided for preprocessing and reproducibility through the Jupyter notebooks.
+The project uses sales and inventory data stored in a **MySQL database**. Jupyter notebooks are used for data import and preprocessing before the data is used by the Streamlit application.
 
 ## 📚 Documentation
 
@@ -149,15 +133,9 @@ This repository contains:
 ## 🔐 Security
 
 - Passwords hashed with SHA-256
-- Secrets in `.streamlit/secrets.toml` (not committed)
-- Input validation on all forms
-- Database credentials protected
+- Sensitive configuration managed through Streamlit secrets
+- Input validation on forms
 
-## 📝 License
+## License
 
-MIT License
-
----
-
-**Version**: 1.0  
-**Last Updated**: July 2026
+This project was developed for academic and portfolio purposes.
