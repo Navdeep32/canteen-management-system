@@ -1,21 +1,17 @@
-# Streamlit and Web Framework
+# Core application
 streamlit==1.28.1
-
-# Database
 mysql-connector-python==8.2.0
 
-# Data Processing and Analysis
+# Data analysis
 pandas==2.2.0
 numpy==1.24.3
-
-# Visualization
 matplotlib==3.8.1
 
-# Data Manipulation
-openpyxl==3.1.2 
-xlrd==2.0.1 
+# Excel file support
+openpyxl==3.1.2
+xlrd==2.0.1
 
-# Development (Optional - for Jupyter notebooks)
+# Jupyter notebooks
 jupyter==1.0.0
 notebook==7.0.0
 jupyterlab==4.0.0
