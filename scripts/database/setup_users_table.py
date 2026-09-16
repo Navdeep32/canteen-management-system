@@ -1,21 +1,30 @@
 """
-Quick Fix Script - Creates Users Table
-Run this to add the missing users table to your existing database
+Users Table Setup Utility
+
+Creates the users table in the Canteen Management System database
+and adds a default admin user if no users exist.
 """
+
+import hashlib
 
 import mysql.connector
 from mysql.connector import Error
 
-def create_users_table():
-    """Create users table in existing database"""
-    
+
+def hash_password(password):
+    """Hash a password using SHA-256."""
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
+def setup_users_table():
+    """Create the users table and default admin user."""
+
     print("=" * 60)
-    print("🔧 Quick Fix - Creating Users Table")
+    print("Users Table Setup")
     print("=" * 60)
-    
+
     try:
-        # Get credentials from user input (like test_connection.py does)
-        print("Enter your MySQL credentials:")
+        print("\nEnter your MySQL credentials:")
         host = input("Host (default: localhost): ").strip() or "localhost"
         user = input("Username (default: root): ").strip() or "root"
         password = input("Password: ").strip()
@@ -28,108 +37,60 @@ def create_users_table():
             database=database
         )
 
+        if not connection.is_connected():
+            print("\nERROR: Could not connect to the database.")
+            return
 
-        # Connect to database
-        # connection = mysql.connector.connect(
-        #     host="localhost",
-        #     user="root",
-        #     password="pswd", 
-        #     database="canteen"    
-        # )
-        
-        if connection.is_connected():
-            print("✅ Connected to MySQL")
-            
-            cursor = connection.cursor()
-            
-            # Create users table
-            print("\n📝 Creating users table...")
-            
-            create_table_query = """
+        print(f"\nConnected to database: {database}")
+
+        cursor = connection.cursor()
+
+        # Create users table if it does not exist
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 user_id INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(100) UNIQUE NOT NULL,
                 password_hash VARCHAR(255) NOT NULL,
-                role VARCHAR(50) NOT NULL,
+                role VARCHAR(50) DEFAULT 'staff',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
-            """
-            
-            cursor.execute(create_table_query)
-            print("✅ Users table created")
-            
-            # Insert default admin user
-            print("\n👤 Creating default admin user...")
-            
-            insert_user_query = """
-            INSERT INTO users (username, password_hash, role) 
-            VALUES (%s, %s, %s)
-            ON DUPLICATE KEY UPDATE username=username
-            """
-            
-            # Password 'admin123' hashed with SHA-256
-            admin_data = (
-                'admin',
-                '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',
-                'admin'
-            )
-            
-            cursor.execute(insert_user_query, admin_data)
-            connection.commit()
-            print("✅ Admin user created")
-            
-            # Verify
-            cursor.execute("SELECT username, role FROM users")
-            users = cursor.fetchall()
-            
-            print("\n📋 Users in database:")
-            for user in users:
-                print(f"   • Username: {user[0]}, Role: {user[1]}")
-            
-            # Show all tables
-            cursor.execute("SHOW TABLES")
-            tables = cursor.fetchall()
-            
-            print(f"\n📊 All tables in database:")
-            for table in tables:
-                cursor.execute(f"SELECT COUNT(*) FROM `{table[0]}`")
-                count = cursor.fetchone()[0]
-                print(f"   • {table[0]}: {count} records")
-            
-            cursor.close()
-            connection.close()
-            
-            print("\n" + "=" * 60)
-            print("✅ SUCCESS! Database is now ready!")
-            print("=" * 60)
-            print("\n📝 Login Credentials:")
-            print("   Username: admin")
-            print("   Password: admin123")
-            print("\n💡 Next step:")
-            print("   Run: streamlit run app.py")
-            print("=" * 60)
-            
-    except Error as e:
-        print(f"\n❌ ERROR: {e}")
-        print("\n🔧 Manual Solution:")
-        print("   Run this SQL in MySQL:")
-        print("""
-   USE canteen;
-   
-   CREATE TABLE users (
-       user_id INT AUTO_INCREMENT PRIMARY KEY,
-       username VARCHAR(100) UNIQUE NOT NULL,
-       password_hash VARCHAR(255) NOT NULL,
-       role VARCHAR(50) NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
-   
-   INSERT INTO users (username, password_hash, role) 
-   VALUES ('admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'admin');
         """)
 
+        connection.commit()
+        print("Users table is ready.")
+
+        # Check whether any users already exist
+        cursor.execute("SELECT COUNT(*) FROM users")
+        user_count = cursor.fetchone()[0]
+
+        if user_count == 0:
+            cursor.execute(
+                """
+                INSERT INTO users (username, password_hash, role)
+                VALUES (%s, %s, %s)
+                """,
+                ("admin", hash_password("admin123"), "admin")
+            )
+
+            connection.commit()
+            print("Default admin user created.")
+            print("Username: admin")
+            print("Password: admin123")
+        else:
+            print(f"Users table already contains {user_count} user(s).")
+            print("No default user was created.")
+
+        cursor.close()
+        connection.close()
+
+        print("\n" + "=" * 60)
+        print("Users table setup completed.")
+        print("=" * 60)
+
+    except Error as error:
+        print(f"\nERROR: {error}")
+
+
 if __name__ == "__main__":
-    create_users_table()
-    
-    print("\n👋 Press Enter to exit...")
-    input()
+    setup_users_table()
+    input("\nPress Enter to exit...")
