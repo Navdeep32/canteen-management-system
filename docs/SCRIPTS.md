@@ -16,7 +16,9 @@ scripts/
 
 ---
 
-## 1. Test Database Connection
+## Database Scripts
+
+### 1. Test Database Connection
 
 **File:** `scripts/database/test_connection.py`
 
@@ -39,7 +41,7 @@ The script prompts for MySQL connection details and checks the database, tables,
 
 ---
 
-## 2. Check Database Schema
+### 2. Check Database Schema
 
 **File:** `scripts/database/check_database_schema.py`
 
@@ -63,7 +65,9 @@ The script displays the columns and data types of the main tables and provides s
 
 ---
 
-## 3. Quick Database Fix
+## Maintenance Script
+
+### 3. Quick Database Fix
 
 **File:** `scripts/maintenance/quick_fix.py`
 
