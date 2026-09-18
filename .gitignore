@@ -73,8 +73,7 @@ coverage.xml
 target/
 
 # Jupyter Notebook
-# *.ipynb  # Commented out - we want to track analysis notebooks
-.ipynb_checkpoints/  # But exclude the cache
+.ipynb_checkpoints/
 
 # IPython
 profile_default/
@@ -124,9 +123,9 @@ dmypy.json
 .pyre/
 
 # Streamlit specific
-.streamlit/secrets.toml
-.streamlit/cache/
-.streamlit/logger.log
+src/.streamlit/secrets.toml
+src/.streamlit/cache/
+src/.streamlit/logger.log
 
 # IDE / Editor
 .vscode/
@@ -148,14 +147,9 @@ Thumbs.db
 *.temp
 ~*
 
-# MySQL specific
-# *.sql #⚠️don't know to keep or not
-
 # Project specific
 .DS_Store
 *.pyc
-data/raw/*.csv
-data/cleaned/*.csv
 !data/sample/*.csv
 logs/
 
