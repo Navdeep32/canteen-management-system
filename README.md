@@ -10,7 +10,7 @@ The system combines **transaction management** with **data analytics**, enabling
 - 📊 Interactive dashboard displaying key sales and inventory metrics.
 - 💰 Record and manage daily sales transactions.
 - 📦 Track inventory, stock usage, and remaining stock.
-- 📁 Bulk upload sales and inventory data using CSV files.
+- 📁 Bulk upload sales and inventory data using CSV or Excel files.
 - 📈 Sales analysis with interactive charts and business insights.
 - 📉 Inventory analysis for stock monitoring and replenishment.
 - 📋 Business intelligence reports for decision-making.
@@ -28,6 +28,7 @@ The system combines **transaction management** with **data analytics**, enabling
 ### 📊 Dashboard Overview
 
 ![Dashboard](docs/images/dashboard-overview.png)
+![Dashboard - additional view](docs/images/dashboard-overview-2.png)
 
 ---
 
@@ -46,18 +47,21 @@ The system combines **transaction management** with **data analytics**, enabling
 ### 📈 Sales Analysis
 
 ![Sales Analysis](docs/images/sales-analysis.png)
+![Sales Analysis - additional view](docs/images/sales-analysis-2.png)
 
 ---
 
 ### 📦 Inventory Analysis
 
 ![Inventory Analysis](docs/images/inventory-analysis.png)
-
+![Inventory Analysis - additional view](docs/images/inventory-analysis-2.png)
+![Inventory Analysis - additional view](docs/images/inventory-analysis-3.png)
 ---
 
 ### 📋 Business Intelligence Reports
 
 ![Reports](docs/images/business-reports.png)
+![Reports - additional view](docs/images/business-reports-2.png)
 
 ---
 
@@ -77,7 +81,7 @@ The system combines **transaction management** with **data analytics**, enabling
 
 ```bash
 # 1. Clone & navigate
-git clone https://github.com/yourusername/canteen-management-system.git
+git clone https://github.com/Navdeep32/canteen-management-system.git
 cd canteen-management-system
 
 # 2. Create virtual environment
