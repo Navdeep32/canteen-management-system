@@ -100,7 +100,7 @@ EXIT;
 mkdir .streamlit
 # Create file with:
 # DB_HOST = "localhost"
-# DB_USER = "root"
+# DB_USER = "your_username"
 # DB_PASSWORD = "your_password"
 # DB_NAME = "canteen"
 
@@ -121,8 +121,6 @@ The project uses sales and inventory data stored in a **MySQL database**. Jupyte
 
 - **[QUICK_START.md](QUICK_START.md)** - Detailed setup guide
 - **[docs/SCRIPTS.md](docs/SCRIPTS.md)** - Available utility scripts
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - System design
-- **[docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md)** - Database structure
 - **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)** - How to use
 - **[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** - Common issues
 

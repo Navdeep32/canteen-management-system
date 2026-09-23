@@ -206,9 +206,7 @@ For database and utility-script information, see:
 * [README.md](../README.md) — Project overview
 * [QUICK_START.md](../QUICK_START.md) — Setup instructions
 * [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — Common issues
-* [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) — Database structure
 * [SCRIPTS.md](SCRIPTS.md) — Utility scripts
-* [ARCHITECTURE.md](ARCHITECTURE.md) — Application architecture
 
 ---
 

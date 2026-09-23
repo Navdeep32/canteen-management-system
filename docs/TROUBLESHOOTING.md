@@ -73,32 +73,7 @@ python scripts/database/check_database_schema.py
 
 ---
 
-## 4. Unable to Login
-
-### Check
-
-* Verify the username and password.
-* Make sure the database connection is working.
-* Confirm that the user exists in the `users` table.
-
-For the default development setup:
-
-```text
-Username: admin
-Password: admin123
-```
-
-If the administrator account needs to be created, run:
-
-```bash
-python scripts/maintenance/quick_fix.py
-```
-
-> The default credentials are intended for the academic/development version of the project.
-
----
-
-## 5. Data Is Not Saving
+## 4. Data Is Not Saving
 
 ### Possible causes
 
@@ -120,7 +95,7 @@ python scripts/database/test_connection.py
 
 ---
 
-## 6. File Upload Issues
+## 5. File Upload Issues
 
 ### Possible causes
 
@@ -140,7 +115,7 @@ Refer to the application/user documentation for the expected file structure.
 
 ---
 
-## 7. Charts or Reports Are Empty
+## 6. Charts or Reports Are Empty
 
 ### Possible causes
 
@@ -157,7 +132,7 @@ Refer to the application/user documentation for the expected file structure.
 
 ---
 
-## 8. Database Schema Verification
+## 7. Database Schema Verification
 
 If the application behaves unexpectedly, inspect the database structure using:
 
@@ -195,12 +170,6 @@ python scripts/database/test_connection.py
 python scripts/database/check_database_schema.py
 ```
 
-### Create the default administrator account
-
-```bash
-python scripts/maintenance/quick_fix.py
-```
-
 ---
 
 ## Quick Reference
@@ -210,7 +179,6 @@ python scripts/maintenance/quick_fix.py
 | Application won't start   | Dependencies and Streamlit              |
 | Database connection error | MySQL and database credentials          |
 | Tables not found          | Run the application and check schema    |
-| Unable to login           | Credentials and `users` table           |
 | Data not saving           | Required fields and database connection |
 | File upload fails         | File format and column structure        |
 | Charts are empty          | Data availability and filters           |

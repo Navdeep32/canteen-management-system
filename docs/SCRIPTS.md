@@ -1,17 +1,15 @@
 # Utility Scripts
 
-This folder contains utility scripts used for database setup, verification, and maintenance of the Canteen Management System.
+This folder contains utility scripts used for database setup, and verification of the Canteen Management System.
 
 ## Script Structure
 
 ```text
 scripts/
-├── database/
-│   ├── test_connection.py
-│   └── check_database_schema.py
-│
-└── maintenance/
-    └── quick_fix.py
+└── database/
+   ├── test_connection.py
+   └── check_database_schema.py
+
 ```
 
 ---
@@ -65,38 +63,6 @@ The script displays the columns and data types of the main tables and provides s
 
 ---
 
-## Maintenance Script
-
-### 3. Quick Database Fix
-
-**File:** `scripts/maintenance/quick_fix.py`
-
-**Purpose:**
-Provides a simple way to create the `users` table and set up the default administrator account when required.
-
-**Use for:**
-
-* Initial setup
-* Recovering or recreating the administrator account
-* Basic database maintenance
-
-**Run:**
-
-```bash
-python scripts/maintenance/quick_fix.py
-```
-
-Default development credentials:
-
-```text
-Username: admin
-Password: admin123
-```
-
-> These credentials are intended for the academic/development version of the project.
-
----
-
 ## Recommended Setup Flow
 
 ### 1. Test the database connection
@@ -111,13 +77,7 @@ python scripts/database/test_connection.py
 streamlit run src/app.py
 ```
 
-### 3. Create the administrator account if required
-
-```bash
-python scripts/maintenance/quick_fix.py
-```
-
-### 4. Verify the database structure
+### 3. Verify the database structure
 
 ```bash
 python scripts/database/check_database_schema.py
@@ -137,7 +97,6 @@ http://localhost:8501
 | -------------------------- | ----------------------------------------------- |
 | `test_connection.py`       | Test MySQL connection and database availability |
 | `check_database_schema.py` | Inspect database structure and sample data      |
-| `quick_fix.py`             | Create/maintain the administrator account       |
 
 ---
 
