@@ -1,39 +1,53 @@
-# 𓌉◯𓇋 Canteen Sales and Inventory Management System
+# Canteen Sales and Inventory Analytics 
 
-A web-based Canteen Sales and Inventory Management System built using **Streamlit**, **Python**, **MySQL**, and **Pandas**. The application helps manage daily canteen operations by recording sales transactions, tracking inventory levels, uploading bulk data, and generating interactive dashboards and business reports.
+A data analytics project focused on analyzing canteen sales and inventory data to monitor business performance, identify trends, and support inventory decisions.
 
-The system combines **transaction management** with **data analytics**, enabling users to monitor sales performance, identify top-selling products, track stock availability, and make data-driven decisions through visual reports.
+Built using `Python`, `Pandas`, `MySQL`, `Streamlit`, and `Matplotlib`.
 
-## Features
+## Project Overview
 
-- Secure user authentication with role-based login.
-- Interactive dashboard displaying key sales and inventory metrics.
-- Record and manage daily sales transactions.
-- Track inventory, stock usage, and remaining stock.
-- Bulk upload sales and inventory data using CSV or Excel files.
-- Sales analysis with interactive charts and business insights.
-- Inventory analysis for stock monitoring and replenishment.
-- Business intelligence reports for decision-making.
-- Sales and inventory data management (view, update, and delete records).
-- MySQL database integration for persistent data storage.
+The project analyzes simulated canteen sales and inventory data stored in a MySQL database.
 
-## 📸 Application Screenshots
+The analysis focuses on:
+
+* Sales performance and trends
+* Revenue and transaction KPIs
+* Product-level sales performance
+* Inventory levels and stock usage
+* Low-stock identification
+* Business insights from sales and inventory data
+
+Python and Pandas are used for data processing and analysis, while MySQL is used for data storage and querying. Streamlit is used to present the analysis through an interactive dashboard.
+
+## Key Analysis
+
+### Sales Analysis
+
+* Track sales and revenue KPIs
+* Analyze sales trends over time
+* Identify top-performing products
+* Examine transaction and product-level performance
+* Generate business insights from sales data
+
+### Inventory Analysis
+
+* Monitor current stock levels
+* Analyze stock usage
+* Identify low-stock items
+* Compare inventory availability across products
+* Support inventory monitoring and replenishment decisions
+
+### Data Management
+
+* Upload sales and inventory data from CSV or Excel files
+* Store structured data in MySQL
+* Process and analyze data using Pandas
+
+## Dashboard Screenshots
 
 ### Dashboard Overview
 
 ![Dashboard](docs/images/dashboard-overview.png)
-
----
-
-<!-- ### Add New Entry
-
-![Add Entry](docs/images/add-new-entry.png) -->
-
----
-
-### Bulk Upload
-
-![Bulk Upload](docs/images/bulk-upload.png)
 
 ---
 
@@ -48,18 +62,12 @@ The system combines **transaction management** with **data analytics**, enabling
 
 ![Inventory Analysis](docs/images/inventory-analysis.png)
 ![Inventory Analysis - low stock alert](docs/images/low-stock-alert.png)
+
 ---
 
-### Business Intelligence Reports
+### Key Business Insights
 
 ![Reports](docs/images/key-insights.png)
-
----
-
-### Data Management
-
-![Data Management](docs/images/data-management.png)
-![Data Management - additional view](docs/images/data-management-2.png)
 
 ## Quick Start
 
@@ -68,7 +76,7 @@ The system combines **transaction management** with **data analytics**, enabling
 - MySQL Server
 - Git
 
-### Setup (5 minutes)
+### Setup 
 
 ```bash
 # 1. Clone & navigate
@@ -89,11 +97,6 @@ EXIT;
 
 # 5. Create .streamlit/secrets.toml
 mkdir .streamlit
-# Create file with:
-# DB_HOST = "localhost"
-# DB_USER = "your_username"
-# DB_PASSWORD = "your_password"
-# DB_NAME = "canteen"
 
 # 6. Test connection
 python scripts/database/test_connection.py
@@ -106,29 +109,12 @@ App opens at: `http://localhost:8501`
 
 ## Dataset
 
-The project uses sales and inventory data stored in a **MySQL database**.
-
-## Documentation
-
-- **[QUICK_START.md](QUICK_START.md)** - Detailed setup guide
-- **[docs/SCRIPTS.md](docs/SCRIPTS.md)** - Available utility scripts
-- **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)** - How to use
-- **[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** - Common issues
+The project uses simulated canteen sales and inventory data stored in a **MySQL database**.
 
 ## Tech Stack
 
-- Frontend: Streamlit
-- Backend: Python
-- Database: MySQL
-- Data Processing: Pandas
-- Visualization: Matplotlib
-
-## Security
-
-- Passwords hashed with SHA-256
-- Sensitive configuration managed through Streamlit secrets
-- Input validation on forms
-
-## License
-
-This project was developed for academic and portfolio purposes.
+* Python – Data analysis and processing
+* Pandas – Data manipulation and analysis
+* MySQL – Data storage and SQL queries
+* Matplotlib – Data visualization
+* Streamlit – Interactive dashboard
