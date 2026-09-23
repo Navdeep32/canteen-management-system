@@ -1,4 +1,4 @@
-# 🍽️ Canteen Sales and Inventory Management System
+# 𓌉◯𓇋 Canteen Sales and Inventory Management System
 
 A web-based Canteen Sales and Inventory Management System built using **Streamlit**, **Python**, **MySQL**, and **Pandas**. The application helps manage daily canteen operations by recording sales transactions, tracking inventory levels, uploading bulk data, and generating interactive dashboards and business reports.
 
