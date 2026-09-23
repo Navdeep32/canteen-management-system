@@ -4,73 +4,64 @@ A web-based Canteen Sales and Inventory Management System built using **Streamli
 
 The system combines **transaction management** with **data analytics**, enabling users to monitor sales performance, identify top-selling products, track stock availability, and make data-driven decisions through visual reports.
 
-## ✨ Features
+## Features
 
-- 🔐 Secure user authentication with role-based login.
-- 📊 Interactive dashboard displaying key sales and inventory metrics.
-- 💰 Record and manage daily sales transactions.
-- 📦 Track inventory, stock usage, and remaining stock.
-- 📁 Bulk upload sales and inventory data using CSV or Excel files.
-- 📈 Sales analysis with interactive charts and business insights.
-- 📉 Inventory analysis for stock monitoring and replenishment.
-- 📋 Business intelligence reports for decision-making.
-- 🗂️ Sales and inventory data management (view, update, and delete records).
-- 🛢️ MySQL database integration for persistent data storage.
+- Secure user authentication with role-based login.
+- Interactive dashboard displaying key sales and inventory metrics.
+- Record and manage daily sales transactions.
+- Track inventory, stock usage, and remaining stock.
+- Bulk upload sales and inventory data using CSV or Excel files.
+- Sales analysis with interactive charts and business insights.
+- Inventory analysis for stock monitoring and replenishment.
+- Business intelligence reports for decision-making.
+- Sales and inventory data management (view, update, and delete records).
+- MySQL database integration for persistent data storage.
 
 ## 📸 Application Screenshots
 
-### 🔐 Login Page
-
-![Login Page](docs/images/login-page.png)
-
----
-
-### 📊 Dashboard Overview
+### Dashboard Overview
 
 ![Dashboard](docs/images/dashboard-overview.png)
-![Dashboard - additional view](docs/images/dashboard-overview-2.png)
 
 ---
 
-### ➕ Add New Entry
+<!-- ### Add New Entry
 
-![Add Entry](docs/images/add-new-entry.png)
+![Add Entry](docs/images/add-new-entry.png) -->
 
 ---
 
-### 📁 Bulk Upload
+### Bulk Upload
 
 ![Bulk Upload](docs/images/bulk-upload.png)
 
 ---
 
-### 📈 Sales Analysis
+### Sales Analysis
 
-![Sales Analysis](docs/images/sales-analysis.png)
-![Sales Analysis - additional view](docs/images/sales-analysis-2.png)
+![Sales Analysis](docs/images/sales-analysis-kpi.png)
+![Sales Analysis - charts](docs/images/sales-analysis-charts.png)
 
 ---
 
-### 📦 Inventory Analysis
+### Inventory Analysis
 
 ![Inventory Analysis](docs/images/inventory-analysis.png)
-![Inventory Analysis - additional view](docs/images/inventory-analysis-2.png)
-![Inventory Analysis - additional view](docs/images/inventory-analysis-3.png)
+![Inventory Analysis - low stock alert](docs/images/low-stock-alert.png)
 ---
 
-### 📋 Business Intelligence Reports
+### Business Intelligence Reports
 
-![Reports](docs/images/business-reports.png)
-![Reports - additional view](docs/images/business-reports-2.png)
+![Reports](docs/images/key-insights.png)
 
 ---
 
-### 🗂️ Data Management
+### Data Management
 
 ![Data Management](docs/images/data-management.png)
+![Data Management - additional view](docs/images/data-management-2.png)
 
-
-## 🎯 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -113,26 +104,26 @@ streamlit run src/app.py
 
 App opens at: `http://localhost:8501`
 
-## 📂 Dataset
+## Dataset
 
-The project uses sales and inventory data stored in a **MySQL database**. Jupyter notebooks are used for data import and preprocessing before the data is used by the Streamlit application.
+The project uses sales and inventory data stored in a **MySQL database**.
 
-## 📚 Documentation
+## Documentation
 
 - **[QUICK_START.md](QUICK_START.md)** - Detailed setup guide
 - **[docs/SCRIPTS.md](docs/SCRIPTS.md)** - Available utility scripts
 - **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)** - How to use
 - **[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** - Common issues
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Frontend: Streamlit
 - Backend: Python
 - Database: MySQL
-- Data Processing: Pandas, NumPy
+- Data Processing: Pandas
 - Visualization: Matplotlib
 
-## 🔐 Security
+## Security
 
 - Passwords hashed with SHA-256
 - Sensitive configuration managed through Streamlit secrets
