@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from datetime import datetime, date
 import mysql.connector
 from mysql.connector import Error
-import io
 import hashlib
 
 # Page Configuration
@@ -162,7 +161,7 @@ def create_default_user(connection):
                 ("admin", hash_password("admin123"), "admin")
             )
             connection.commit()
-            st.info("ℹ️ Default user created - Username: admin, Password: admin123")
+            st.info("Default user created - Username: admin, Password: admin123")
         cursor.close()
     except Error as e:
         st.error(f"❌ Error creating default user: {e}")
@@ -360,7 +359,7 @@ def login_page():
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        st.markdown("### 🔐 Login")
+        st.markdown("### Login")
         
         with st.form("login_form"):
             username = st.text_input("Username", placeholder="Enter your username")
@@ -396,7 +395,7 @@ def main_app():
     st.sidebar.title(f"👤 {st.session_state['user']['username']}")
     st.sidebar.markdown(f"**Role:** {st.session_state['user']['role']}")
     
-    if st.sidebar.button("🚪 Logout"):
+    if st.sidebar.button("Logout"):
         st.session_state.clear()
         st.rerun()
     
@@ -404,7 +403,7 @@ def main_app():
     
     # Main navigation
     page = st.sidebar.radio(
-        "📌 Navigation",
+        "Navigation",
         ["Dashboard", "Add New Entry", "Upload Data", "Sales Analysis", "Inventory Analysis", "Reports", "Data Management"]
     )
     
@@ -431,13 +430,13 @@ def main_app():
 
 def show_dashboard(conn):
     """Display main dashboard"""
-    st.header("📊 Dashboard Overview")
+    st.header("Dashboard Overview")
     
     sales_df = get_sales_data(conn)
     inventory_df = get_inventory_data(conn)
     
     if sales_df.empty and inventory_df.empty:
-        st.info("ℹ️ No data available. Please add entries or upload data to get started.")
+        st.info("No data available. Please add entries or upload data to get started.")
         return
     
     # Key Metrics
@@ -446,30 +445,30 @@ def show_dashboard(conn):
     with col1:
         if not sales_df.empty:
             total_sales = sales_df['total_amount'].sum()
-            st.metric("💵 Total Sales", f"₹{total_sales:,.2f}")
+            st.metric("Total Sales", f"₹{total_sales:,.2f}")
         else:
-            st.metric("💵 Total Sales", "₹0.00")
+            st.metric("Total Sales", "₹0.00")
     
     with col2:
         if not sales_df.empty:
             total_items_sold = sales_df['quantity_sold'].sum()
-            st.metric("🛒 Items Sold", f"{total_items_sold:,}")
+            st.metric("Items Sold", f"{total_items_sold:,}")
         else:
-            st.metric("🛒 Items Sold", "0")
+            st.metric("Items Sold", "0")
     
     with col3:
         if not sales_df.empty:
             avg_order = sales_df['total_amount'].mean()
-            st.metric("📊 Avg Order Value", f"₹{avg_order:.2f}")
+            st.metric("Avg Order Value", f"₹{avg_order:.2f}")
         else:
-            st.metric("📊 Avg Order Value", "₹0.00")
+            st.metric("Avg Order Value", "₹0.00")
     
     with col4:
         if not inventory_df.empty:
             total_stock = inventory_df['remaining_stock'].sum()
-            st.metric("📦 Total Stock", f"{total_stock:,} units")
+            st.metric("Total Stock", f"{total_stock:,} units")
         else:
-            st.metric("📦 Total Stock", "0 units")
+            st.metric("Total Stock", "0 units")
     
     st.markdown("---")
     
@@ -478,7 +477,7 @@ def show_dashboard(conn):
         col1, col2 = st.columns(2)
         
         with col1:
-            st.subheader("🏆 Top 10 Selling Items by Quantity")
+            st.subheader("Top 10 Selling Items by Quantity")
 
             top_items = (
                 sales_df
@@ -489,10 +488,14 @@ def show_dashboard(conn):
             )
 
             fig, ax = plt.subplots(figsize=(10, 6))
-            bars = ax.barh(top_items.index, top_items.values, color='#2ecc71')
+            bars = ax.barh(top_items.index, top_items.values, color='#6B8E6E')
 
-            ax.set_xlabel('Quantity Sold (Units)', fontsize=14)
-            ax.set_ylabel('Item Name', fontsize=14)
+            ax.set_xlabel('Quantity Sold (Units)', fontsize=15)
+            ax.set_ylabel('Item Name', fontsize=15)
+
+            # Increase axis tick/label text
+            ax.tick_params(axis='x', labelsize=13)
+            ax.tick_params(axis='y', labelsize=13)
 
             # Highest value at top
             ax.invert_yaxis()
@@ -517,19 +520,20 @@ def show_dashboard(conn):
 
         with col2:
             if 'payment_mode' in sales_df.columns:
-                st.subheader("💳 Sales Distribution by Payment Mode")
+                st.subheader("Sales Distribution by Payment Mode")
                 payment_counts = sales_df['payment_mode'].value_counts()
                 
                 fig, ax = plt.subplots(figsize=(10, 6))
-                colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99']
+                colors = ['#E6DAA6', '#B7C9B0', '#A3B18A', '#ffcc99']
                 ax.pie(payment_counts.values, labels=payment_counts.index, 
-                       autopct='%1.1f%%', colors=colors[:len(payment_counts)], startangle=90)
+                       autopct='%1.1f%%', colors=colors[:len(payment_counts)], 
+                       startangle=90, textprops={'fontsize': 13})
                 ax.axis('equal')
                 st.pyplot(fig)
     
     if not inventory_df.empty:
         st.markdown("---")
-        st.subheader("⚠️ Low Stock Alert (< 20 units)")
+        st.subheader("Low Stock Alert (< 20 units)")
         low_stock = inventory_df[inventory_df['remaining_stock'] < 20].sort_values('remaining_stock')
         
         if not low_stock.empty:
@@ -543,9 +547,9 @@ def show_dashboard(conn):
 
 def show_entry_forms(conn):
     """Display forms for adding new entries"""
-    st.header("➕ Add New Entry")
+    st.header("Add New Entry")
     
-    tab1, tab2 = st.tabs(["💰 New Sale", "📦 New Inventory"])
+    tab1, tab2 = st.tabs(["New Sale", "New Inventory"])
     
     with tab1:
         st.subheader("Add Sales Transaction")
@@ -566,7 +570,7 @@ def show_entry_forms(conn):
                 payment_mode = st.selectbox("Payment Mode", ["Cash", "UPI", "Card", "Other"])
                 customer_type = st.selectbox("Customer Type", ["Student", "Staff", "Guest", "Other"])
             
-            submitted = st.form_submit_button("💾 Save Sale")
+            submitted = st.form_submit_button("Save Sale")
             
             if submitted:
                 if item_name and unit_price > 0:
@@ -607,7 +611,7 @@ def show_entry_forms(conn):
                 unit_cost = st.number_input("Unit Cost (₹)", min_value=0.0, value=0.0, step=0.5)
                 supplier_name = st.text_input("Supplier Name", placeholder="e.g., FreshFoods")
             
-            submitted_inv = st.form_submit_button("💾 Save Inventory")
+            submitted_inv = st.form_submit_button("Save Inventory")
             
             if submitted_inv:
                 if item_name_inv and stock_in >= 0:
@@ -631,11 +635,11 @@ def show_entry_forms(conn):
 
 def show_upload_page(conn):
     """Display bulk upload page"""
-    st.header("📤 Bulk Upload Data")
+    st.header("Bulk Upload Data")
     
-    st.info("💡 Upload CSV or Excel files to add multiple records at once")
+    st.info("Upload CSV or Excel files to add multiple records at once")
     
-    tab1, tab2 = st.tabs(["💰 Upload Sales", "📦 Upload Inventory"])
+    tab1, tab2 = st.tabs(["Upload Sales", "Upload Inventory"])
     
     with tab1:
         st.subheader("Upload Sales Data")
@@ -653,7 +657,7 @@ def show_upload_page(conn):
                 st.success(f"✅ File loaded: {len(df)} records")
                 st.dataframe(df.head(10), use_container_width=True)
                 
-                if st.button("📥 Import Sales Data", key='import_sales'):
+                if st.button("Import Sales Data", key='import_sales'):
                     with st.spinner("Importing data..."):
                         # Clean date column
                         if 'date_of_sale' in df.columns:
@@ -681,7 +685,7 @@ def show_upload_page(conn):
                 st.success(f"✅ File loaded: {len(df)} records")
                 st.dataframe(df.head(10), use_container_width=True)
                 
-                if st.button("📥 Import Inventory Data", key='import_inventory'):
+                if st.button("Import Inventory Data", key='import_inventory'):
                     with st.spinner("Importing data..."):
                         # Clean date column
                         if 'date_of_entry' in df.columns:
@@ -695,7 +699,7 @@ def show_upload_page(conn):
 
 def show_sales_analysis(conn):
     """Display detailed sales analysis"""
-    st.header("💰 Sales Analysis")
+    st.header("Sales Analysis")
     
     # Date filter
     col1, col2 = st.columns(2)
@@ -707,17 +711,17 @@ def show_sales_analysis(conn):
     sales_df = get_sales_data(conn, start_date, end_date)
     
     if sales_df.empty:
-        st.info("ℹ️ No sales data available for the selected period")
+        st.info("No sales data available for the selected period")
         return
     
     # Metrics
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("💵 Total Sales", f"₹{sales_df['total_amount'].sum():,.2f}")
+        st.metric("Total Sales", f"₹{sales_df['total_amount'].sum():,.2f}")
     with col2:
-        st.metric("📋 Total Transactions", len(sales_df))
+        st.metric("Total Transactions", len(sales_df))
     with col3:
-        st.metric("📊 Average Transaction", f"₹{sales_df['total_amount'].mean():.2f}")
+        st.metric("Average Transaction", f"₹{sales_df['total_amount'].mean():.2f}")
     
     st.markdown("---")
     
@@ -754,25 +758,35 @@ def show_sales_analysis(conn):
     
     with col1:
         if 'category' in filtered_df.columns:
-            st.subheader("📊 Sales by Category")
+            st.subheader("Sales by Category")
             category_sales = filtered_df.groupby('category')['total_amount'].sum().sort_values(ascending=False)
             
             fig, ax = plt.subplots(figsize=(10, 6))
-            ax.bar(category_sales.index, category_sales.values, color='#9b59b6')
-            ax.set_xlabel('Category', fontsize=11)
-            ax.set_ylabel('Total Sales (₹)', fontsize=11)
+            ax.bar(category_sales.index, category_sales.values, color="#939B8D")
+            ax.set_xlabel('Category', fontsize=15)
+            ax.set_ylabel('Total Sales (₹)', fontsize=15)
+
+            # Increase axis tick/label text
+            ax.tick_params(axis='x', labelsize=12)
+            ax.tick_params(axis='y', labelsize=12)
+
             plt.xticks(rotation=45)
             plt.tight_layout()
             st.pyplot(fig)
     
     with col2:
-        st.subheader("🏆 Top 10 Items by Revenue")
+        st.subheader("Top 10 Items by Revenue")
         top_revenue = filtered_df.groupby('item_name')['total_amount'].sum().sort_values(ascending=False).head(10)
         
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.barh(top_revenue.index, top_revenue.values, color='#e74c3c')
-        ax.set_xlabel('Total Revenue (₹)', fontsize=11)
-        ax.set_ylabel('Item Name', fontsize=11)
+        ax.barh(top_revenue.index, top_revenue.values, color="#A9C5A0")
+        ax.set_xlabel('Total Revenue (₹)', fontsize=15)
+        ax.set_ylabel('Item Name', fontsize=15)
+
+        # Increase axis tick/label text
+        ax.tick_params(axis='x', labelsize=12)
+        ax.tick_params(axis='y', labelsize=12)
+        
         ax.invert_yaxis()
         plt.tight_layout()
         st.pyplot(fig)
@@ -780,27 +794,27 @@ def show_sales_analysis(conn):
     st.markdown("---")
     
     # Data table
-    st.subheader("📋 Transaction Details")
+    st.subheader("Transaction Details")
     st.dataframe(filtered_df, use_container_width=True, hide_index=True)
 
 def show_inventory_analysis(conn):
     """Display inventory analysis"""
-    st.header("📦 Inventory Analysis")
+    st.header("Inventory Analysis")
     
     inventory_df = get_inventory_data(conn)
     
     if inventory_df.empty:
-        st.info("ℹ️ No inventory data available")
+        st.info("No inventory data available")
         return
     
     # Metrics
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("📥 Total Stock In", f"{inventory_df['stock_in'].sum():,} units")
+        st.metric("Total Stock In", f"{inventory_df['stock_in'].sum():,} units")
     with col2:
-        st.metric("📤 Total Stock Used", f"{inventory_df['stock_used'].sum():,} units")
+        st.metric("Total Stock Used", f"{inventory_df['stock_used'].sum():,} units")
     with col3:
-        st.metric("📊 Avg Remaining Stock", f"{inventory_df['remaining_stock'].mean():.0f} units")
+        st.metric("Avg Remaining Stock", f"{inventory_df['remaining_stock'].mean():.0f} units")
     
     st.markdown("---")
     
@@ -808,13 +822,19 @@ def show_inventory_analysis(conn):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("📊 Stock Status by Item")
+        st.subheader("Stock Status by Item")
         stock_by_item = inventory_df.groupby('item_name')['remaining_stock'].sum().sort_values(ascending=True).head(15)
         
         # fig, ax = plt.subplots(figsize=(10, 6))
         fig, ax = plt.subplots(figsize=(8, 6))
-        colors = ['red' if x < 20 else 'orange' if x < 50 else 'green' for x in stock_by_item.values]
+        # colors = ['red' if x < 20 else 'orange' if x < 50 else 'green' for x in stock_by_item.values]
 
+        colors = [
+            "#4A644C" if x < 20
+            else "#ABCAA0" if x < 50
+            else "#A3B18A"
+            for x in stock_by_item.values
+        ]
         #extra
         for i, v in enumerate(stock_by_item.values):
             ax.text(v + 50, i, f'{v:,}', va='center')
@@ -823,75 +843,17 @@ def show_inventory_analysis(conn):
         ax.grid(axis='x', linestyle='--', alpha=0.3)
 
         ax.barh(stock_by_item.index, stock_by_item.values, color=colors)
-        ax.set_xlabel('Remaining Stock (units)', fontsize=11)
-        ax.set_ylabel('Item Name', fontsize=11)
-        ax.axvline(x=20, color='red', linestyle='--', linewidth=2, label='Low Stock (< 20)')
+        ax.set_xlabel('Remaining Stock (units)', fontsize=15)
+        ax.set_ylabel('Item Name', fontsize=15)
+        ax.axvline(x=20, color="#1B1C19", linestyle='--', linewidth=2, label='Low Stock (< 20)')
         ax.legend()
         plt.tight_layout()
         st.pyplot(fig)
-    
-    # with col2:
-    #     if 'supplier_name' in inventory_df.columns:
-    #         st.subheader("🏭 Supplier Distribution")
-    #         supplier_stock = inventory_df.groupby('supplier_name')['stock_in'].sum().sort_values(ascending=False)
-            
-    #         fig, ax = plt.subplots(figsize=(10, 6))
-    #         colors = plt.cm.Set3(range(len(supplier_stock)))
-    #         ax.pie(supplier_stock.values, labels=supplier_stock.index, 
-    #                autopct='%1.1f%%', colors=colors, startangle=90)
-    #         ax.axis('equal')
-    #         st.pyplot(fig)
-    
-    # updated above code here
-    # with col2:
-    #     if 'supplier_name' in inventory_df.columns:
-    #         st.subheader("🏭 Supplier Distribution")
-
-    #         supplier_stock = (
-    #             inventory_df.groupby('supplier_name')['stock_in']
-    #             .sum()
-    #             .sort_values(ascending=False)
-    #         )
-
-    #         # ✅ Show only top 5 suppliers
-    #         top_n = 5
-    #         if len(supplier_stock) > top_n:
-    #             top_suppliers = supplier_stock[:top_n]
-    #             others_sum = supplier_stock[top_n:].sum()
-    #             supplier_stock = top_suppliers.copy()
-    #             supplier_stock["Others"] = others_sum
-
-    #         fig, ax = plt.subplots(figsize=(8, 6))
-
-    #         colors = plt.cm.Set3(range(len(supplier_stock)))
-
-    #         # ✅ Donut chart (pie with hole)
-    #         wedges, texts, autotexts = ax.pie(
-    #             supplier_stock.values,
-    #             autopct='%1.1f%%',
-    #             startangle=90,
-    #             colors=colors,
-    #             wedgeprops=dict(width=0.4)   # 🔥 makes donut
-    #         )
-
-    #         # ✅ Legend outside (clean look)
-    #         ax.legend(
-    #             wedges,
-    #             supplier_stock.index,
-    #             title="Suppliers",
-    #             loc="center left",
-    #             bbox_to_anchor=(1, 0.5)
-    #         )
-
-    #         ax.axis('equal')
-    #         plt.tight_layout()
-
-    #         st.pyplot(fig)
 
     #again upated:
     with col2:
         if 'supplier_name' in inventory_df.columns:
-            st.subheader("🏭 Supplier Distribution")
+            st.subheader("Supplier Distribution")
 
             supplier_stock = (
                 inventory_df.groupby('supplier_name')['stock_in']
@@ -912,7 +874,16 @@ def show_inventory_analysis(conn):
 
             fig, ax = plt.subplots(figsize=(8, 6))
             # fig, ax = plt.subplots(figsize=(6, 5))
-            colors = plt.cm.Set3(range(len(values)))
+
+            colors = [
+                '#6B8E6E',
+                '#DCE5D4',
+                '#B7C9B0',
+                '#A3B18A',
+                '#EDEAE0'
+            ]
+
+            # colors = plt.cm.Set3(range(len(values)))
 
             # ✅ Show % ONLY if > 5%
             def autopct_format(pct):
@@ -921,8 +892,8 @@ def show_inventory_analysis(conn):
             wedges, texts, autotexts = ax.pie(
                 values,
                 startangle=90,
-                colors=colors,
-                autopct=autopct_format,      # 🔥 hides small labels
+                colors=colors[:len(values)],
+                autopct=autopct_format,      # hides small labels
                 wedgeprops=dict(width=0.45)  # donut thickness
                 # wedgeprops=dict(width=0.35),  # donut thickness
 
@@ -955,7 +926,7 @@ def show_inventory_analysis(conn):
     st.markdown("---")
     
     # Low Stock Alert
-    st.subheader("⚠️ Low Stock Alert (< 20 units)")
+    st.subheader("Low Stock Alert (< 20 units)")
     low_stock = inventory_df[inventory_df['remaining_stock'] < 20].sort_values('remaining_stock')
     
     if not low_stock.empty:
@@ -971,22 +942,22 @@ def show_inventory_analysis(conn):
     st.markdown("---")
     
     # Full inventory table
-    st.subheader("📋 Complete Inventory")
+    st.subheader("Complete Inventory")
     st.dataframe(inventory_df, use_container_width=True, hide_index=True)
 
 def show_reports(conn):
     """Display reports and insights"""
-    st.header("📈 Business Intelligence Reports")
+    st.header("Business Intelligence Reports")
     
     sales_df = get_sales_data(conn)
     inventory_df = get_inventory_data(conn)
     
     if sales_df.empty and inventory_df.empty:
-        st.info("ℹ️ No data available for reports")
+        st.info("No data available for reports")
         return
     
     # Key Insights
-    st.subheader("🎯 Key Insights")
+    st.subheader("Key Insights")
     
     col1, col2 = st.columns(2)
     
@@ -999,7 +970,7 @@ def show_reports(conn):
             revenue_amt = sales_df.groupby('item_name')['total_amount'].sum().max()
             
             st.info(f"""
-            **📊 Sales Insights:**
+            **Sales Insights:**
             - **Best Selling Item:** {best_item} ({best_qty:,} units)
             - **Highest Revenue Item:** {revenue_item} (₹{revenue_amt:,.2f})
             - **Total Revenue:** ₹{sales_df['total_amount'].sum():,.2f}
@@ -1011,7 +982,7 @@ def show_reports(conn):
             low_count = len(inventory_df[inventory_df['remaining_stock'] < 20])
             
             st.warning(f"""
-            **📦 Inventory Insights:**
+            **Inventory Insights:**
             - **Low Stock Items:** {low_count} items need reordering
             - **Total Items:** {len(inventory_df.groupby('item_name'))}
             - **Average Stock Usage:** {inventory_df['stock_used'].mean():.1f} units
@@ -1022,7 +993,7 @@ def show_reports(conn):
     
     # Trend Analysis
     if not sales_df.empty and 'month_name' in sales_df.columns:
-        # st.subheader("📈 Monthly Sales Trend")
+        # st.subheader("Monthly Sales Trend")
         # monthly_sales = sales_df.groupby('month_name')['total_amount'].sum()
         
         # fig, ax = plt.subplots(figsize=(14, 5))
@@ -1036,7 +1007,7 @@ def show_reports(conn):
         # st.pyplot(fig)
 
         #updated above code here
-        st.subheader("📈 Monthly Sales Trend")
+        st.subheader("Monthly Sales Trend")
         month_order = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -1071,15 +1042,15 @@ def show_reports(conn):
             marker='o',
             linewidth=3,
             markersize=8,
-            color='#1f77b4'
+            color='#6B8E6E'
         )
 
         # ✅ 5. Add value labels (professional look)
         for i, v in enumerate(monthly_sales.values):
             ax.text(i, v, f'₹{v:,.0f}', ha='center', va='bottom', fontsize=9)
 
-        ax.set_xlabel('Month', fontsize=12)
-        ax.set_ylabel('Total Sales (₹)', fontsize=12)
+        ax.set_xlabel('Month', fontsize=15)
+        ax.set_ylabel('Total Sales (₹)', fontsize=15)
         ax.grid(True, linestyle='--', alpha=0.3)
 
         plt.xticks(rotation=45)
@@ -1091,7 +1062,7 @@ def show_reports(conn):
     st.markdown("---")
     
     # Download Reports
-    st.subheader("📥 Download Reports")
+    st.subheader("Download Reports")
     
     col1, col2 = st.columns(2)
     
@@ -1099,7 +1070,7 @@ def show_reports(conn):
         if not sales_df.empty:
             csv_sales = sales_df.to_csv(index=False)
             st.download_button(
-                label="📊 Download Sales Report",
+                label="Download Sales Report",
                 data=csv_sales,
                 file_name=f"sales_report_{datetime.now().strftime('%Y%m%d')}.csv",
                 mime="text/csv"
@@ -1109,7 +1080,7 @@ def show_reports(conn):
         if not inventory_df.empty:
             csv_inventory = inventory_df.to_csv(index=False)
             st.download_button(
-                label="📦 Download Inventory Report",
+                label="Download Inventory Report",
                 data=csv_inventory,
                 file_name=f"inventory_report_{datetime.now().strftime('%Y%m%d')}.csv",
                 mime="text/csv"
@@ -1118,12 +1089,12 @@ def show_reports(conn):
 def show_data_management(conn):
     """Improved professional data management page"""
 
-    st.header("🗄️ Data Management")
+    st.header("Data Management")
 
-    tab1, tab2 = st.tabs(["💰 Manage Sales", "📦 Manage Inventory"])
+    tab1, tab2 = st.tabs(["Manage Sales", "Manage Inventory"])
 
     # =========================================================
-    # 💰 SALES MANAGEMENT
+    # SALES MANAGEMENT
     # =========================================================
     with tab1:
         st.subheader("Sales Data Management")
@@ -1138,7 +1109,7 @@ def show_data_management(conn):
         st.info(f"Total Records: {len(sales_df)}")
 
         # ---------- Search ----------
-        search = st.text_input("🔍 Search Item Name", key="sales_search")
+        search = st.text_input("Search Item Name", key="sales_search")
 
         if search:
             sales_df = sales_df[
@@ -1188,7 +1159,7 @@ def show_data_management(conn):
         )
 
         # ---------- Delete Section ----------
-        st.markdown("### ⚠️ Delete Record")
+        st.markdown("### Delete Record")
 
         sale_to_delete = st.selectbox(
             "Select Sale ID",
@@ -1203,7 +1174,7 @@ def show_data_management(conn):
         st.caption(f"Showing {len(display_df)} of {len(sales_df)} records")
 
     # =========================================================
-    # 📦 INVENTORY MANAGEMENT
+    # INVENTORY MANAGEMENT
     # =========================================================
     with tab2:
         st.subheader("Inventory Data Management")
@@ -1218,7 +1189,7 @@ def show_data_management(conn):
         st.info(f"Total Records: {len(inventory_df)}")
 
         # ---------- Search ----------
-        search_inv = st.text_input("🔍 Search Item Name", key="inv_search")
+        search_inv = st.text_input("Search Item Name", key="inv_search")
 
         if search_inv:
             inventory_df = inventory_df[
@@ -1261,7 +1232,7 @@ def show_data_management(conn):
         )
 
         # ---------- Delete Section ----------
-        st.markdown("### ⚠️ Delete Record")
+        st.markdown("### Delete Record")
 
         inv_to_delete = st.selectbox(
             "Select Inventory ID",
