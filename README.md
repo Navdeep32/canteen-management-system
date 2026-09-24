@@ -95,8 +95,8 @@ mysql -u root -p
 CREATE DATABASE canteen;
 EXIT;
 
-# 5. Create .streamlit/secrets.toml
-mkdir .streamlit
+# 5. Create src/.streamlit/secrets.toml
+mkdir src/.streamlit
 
 # 6. Test connection
 python scripts/database/test_connection.py

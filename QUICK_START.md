@@ -56,7 +56,7 @@ CREATE DATABASE canteen;
 Create:
 
 ```text
-.streamlit/secrets.toml
+src/.streamlit/secrets.toml
 ```
 
 Add your MySQL credentials:
@@ -106,7 +106,7 @@ These credentials are intended only for the academic/development version.
 ### MySQL Connection Error
 
 * Make sure MySQL Server is running.
-* Check the credentials in `.streamlit/secrets.toml`.
+* Check the credentials in `src/.streamlit/secrets.toml`. 
 * Run the database connection test:
 
 ```bash

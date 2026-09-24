@@ -156,6 +156,3 @@ logs/
 # Backup files
 *.bak
 *.backup
-
-# Secrets file
-secrets.json
