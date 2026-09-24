@@ -1,6 +1,6 @@
-# Canteen Sales and Inventory Analytics 
+# Canteen Sales & Inventory Analytics 
 
-A data analytics project focused on analyzing canteen sales and inventory data to monitor business performance, identify trends, and support inventory decisions.
+A data analytics-focused web application for analyzing canteen sales and inventory data, monitoring business performance, identifying trends, and supporting inventory decisions.
 
 Built using `Python`, `Pandas`, `MySQL`, `Streamlit`, and `Matplotlib`.
 

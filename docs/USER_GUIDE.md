@@ -1,6 +1,6 @@
 # User Guide
 
-Guide to using the Canteen Sales & Inventory Management System.
+Guide to using the Canteen Sales and Inventory Management System.
 
 ---
 
@@ -12,19 +12,19 @@ Start the application with:
 streamlit run src/app.py
 ```
 
-Once the application starts, open:
+Open the application at:
 
 ```text
 http://localhost:8501
 ```
 
-The application uses MySQL for storing sales, inventory, and user data.
+The application uses MySQL to store sales, inventory, and user data.
 
 ---
 
 ## Login
 
-Enter your username and password on the login page.
+Use the login page to access the application.
 
 ### Default Development Account
 
@@ -33,49 +33,43 @@ Username: admin
 Password: admin123
 ```
 
-> These credentials are provided for the academic/development version of the project.
-
-After successful login, the application opens the main dashboard.
+> These credentials are provided for the academic/development version of the project and should not be used for a real deployment.
 
 ---
 
 ## Dashboard
 
-The dashboard provides an overview of the canteen's current data.
+The dashboard provides an overview of the canteen data.
 
-Depending on the available data, it provides information such as:
+It includes:
 
-* Sales-related KPIs
+* Sales and revenue KPIs
 * Inventory information
-* Low-stock items
-* Quick access to application modules
+* Low-stock alerts
+* Access to the main application sections
 
-Use the sidebar to navigate between the different sections.
+Use the sidebar to navigate through the application.
 
 ---
 
-## Sales Management
+## Sales
 
 The Sales section is used to record and manage sales transactions.
 
 ### Add a Sale
 
 1. Open **Sales** from the sidebar.
-2. Enter the required sales information.
-3. Provide the item name, quantity, and price.
-4. Enter any other available transaction details.
+2. Enter the required transaction details.
+3. Enter the item, quantity, and price.
+4. Enter the remaining required information.
 5. Submit the form.
-6. The record is stored in the MySQL database.
 
-The total transaction amount is calculated from the quantity and unit price where applicable.
+The transaction is stored in the MySQL database.
 
 ### View Sales
 
-The sales section can be used to view previously recorded transactions.
+The sales section displays recorded transactions and related information such as:
 
-Typical information includes:
-
-* Sale ID
 * Date
 * Item
 * Category
@@ -87,126 +81,79 @@ Typical information includes:
 
 ---
 
-## Inventory Management
+## Inventory
 
-The Inventory section is used to record and monitor stock information.
+The Inventory section is used to manage and monitor stock information.
 
 ### Add Inventory
 
 1. Open **Inventory** from the sidebar.
 2. Enter the item details.
-3. Enter stock received or used.
-4. Enter the unit cost.
-5. Provide supplier information where applicable.
-6. Submit the form.
-
-The application stores the inventory information in the MySQL database.
+3. Enter stock information.
+4. Enter the unit cost and supplier details where required.
+5. Submit the form.
 
 ### Monitor Stock
 
-The inventory section provides information about available stock and helps identify items that may require replenishment.
+The inventory section displays current stock information and highlights items that require attention based on stock levels.
 
 ---
 
 ## Reports & Analytics
 
-The Reports section provides an analytical view of the data stored in the system.
+The analytics sections provide an overview of sales and inventory performance.
 
-Depending on the available data, reports can be used to examine:
+They can be used to examine:
 
-* Sales performance
+* Sales and revenue performance
 * Sales trends
-* Item-level performance
+* Product-level performance
 * Category-level performance
-* Inventory information
+* Inventory levels
+* Low-stock items
 
-Charts and summary metrics help provide a quick view of business performance.
+Charts and KPI cards provide a visual summary of the available data.
 
 ---
 
 ## Data Upload
 
-The application supports uploading structured sales or inventory data where the corresponding upload functionality is available.
+The application supports uploading sales and inventory data from supported file formats.
 
-### General Process
+### Upload Process
 
 1. Open the relevant upload section.
 2. Select the data file.
-3. Review the uploaded data.
-4. Verify that the columns and values are correct.
+3. Preview the uploaded data.
+4. Check the columns and values.
 5. Submit the upload.
 6. Verify the imported records.
 
-Before uploading, ensure that the file follows the format expected by the application.
+Make sure the uploaded file follows the format expected by the application.
 
 ---
 
-## Common Data Operations
+## Searching, Filtering and Deleting Records
 
-### Searching and Filtering
+The application provides controls for working with stored records.
 
-Where available, use the search and filter controls to narrow down records.
+Use the available search and filter options to locate specific records.
 
-Common filtering criteria may include:
+Records can also be deleted from the relevant management sections when required.
 
-* Date
-* Item
-* Category
-* Supplier
-* Payment mode
-
-### Editing Records
-
-If editing is available for a particular record:
-
-1. Select the record.
-2. Choose the edit option.
-3. Update the required information.
-4. Save the changes.
-
-### Deleting Records
-
-If deletion is available:
-
-1. Select the record.
-2. Choose the delete option.
-3. Confirm the action.
-
-> Deleted records may not be recoverable, so verify the record before deleting it.
-
----
-
-## Data Entry Guidelines
-
-For more reliable reports and analysis:
-
-* Use consistent item names.
-* Enter accurate quantities and prices.
-* Check dates before submitting.
-* Complete all required fields.
-* Review the entered information before saving.
-* Avoid entering the same transaction more than once.
+> Verify a record before deleting it because deleted records may not be recoverable.
 
 ---
 
 ## Troubleshooting
 
-For common setup and application issues, see:
+For common application and database issues, see:
 
 **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)**
 
-For database and utility-script information, see:
+For database utility scripts, see:
 
 **[SCRIPTS.md](SCRIPTS.md)**
-
----
-
-## Related Documentation
-
-* [README.md](../README.md) — Project overview
-* [QUICK_START.md](../QUICK_START.md) — Setup instructions
-* [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — Common issues
-* [SCRIPTS.md](SCRIPTS.md) — Utility scripts
 
 ---
 

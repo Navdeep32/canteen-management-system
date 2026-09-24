@@ -57,19 +57,31 @@ The application reports that a table such as `users`, `sales`, or `inventory` do
 
 ### Try
 
-Start the application once:
+First, verify the database structure:
+
+```bash
+python scripts/database/check_database_schema.py
+```
+
+If the `users` table is missing, run the user table setup script:
+
+```bash
+python scripts/database/setup_users_table.py
+```
+
+Then verify the database structure again:
+
+```bash
+python scripts/database/check_database_schema.py
+```
+
+For other missing tables, make sure the `canteen` database exists and start the application:
 
 ```bash
 streamlit run src/app.py
 ```
 
-The application creates the required tables during setup.
-
-You can verify the database structure using:
-
-```bash
-python scripts/database/check_database_schema.py
-```
+The application may create the required application tables during startup.
 
 ---
 
@@ -168,6 +180,12 @@ python scripts/database/test_connection.py
 
 ```bash
 python scripts/database/check_database_schema.py
+```
+
+### Setup users table
+
+```bash
+python scripts/database/setup_users_table.py
 ```
 
 ---
